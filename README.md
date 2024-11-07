@@ -57,4 +57,85 @@ CREATE TABLE Produtos (
 )
 ▶ criando tabela
 
+SELECT COUNT(*) FROM Produtos
+▶ contagem de linhas sem retorno de dados
+
+SELECT COUNT(*) QuantidadeProdutos FROM Produtos
+▶ contagem de linhas sem retorno de dados dando um nome a coluna
+
+SELECT COUNT(*) QuantidadeProdutosM FROM Produtos WHERE Tamanho = 'M'
+▶ contagem de linhas onde o Tamanho é M sem retorno de dados dando um nome a coluna
+
+SELECT SUM(Preco) ValorTotal FROM Produtos
+▶ somando valor total de todas as linhas (também funciona com WHERE)
+
+SELECT MAX(Preco) ValorMaximo FROM Produtos
+▶ valor máximo da coluna
+
+SELECT MIN(Preco) ValorMinimo FROM Produtos
+▶ valor mínimo da coluna
+
+SELECT AVG(Preco) Media FROM Produtos
+▶ média das linhas
+
+SELECT 
+	Nome + ' - ' + Cor NomeProdutoCompleto
+FROM Produtos
+▶ concatenando colunas
+
+SELECT 
+	Nome + ' - ' + Cor NomeProduto,
+	UPPER(Nome) NomeMaiusculo,
+	LOWER(Cor) CorMinuscula
+FROM Produtos
+▶ deixando a coluna toda maiúscula ou toda minúsucla
+
+ALTER TABLE Produtos
+ADD DataCadastro DATETIME2
+
+UPDATE Produtos SET DataCadastro = GETDATE()
+▶ criando uma coluna e já fazendo update dela
+
+ALTER TABLE Produtos
+DROP COLUMN DataCadastro
+▶ apagando coluna 
+
+FORMAT(DataCadastro, 'dd/MM/yyyy HH:mm') DataFormatada
+▶formatando data
+
+SELECT 
+	Tamanho,
+	COUNT(*) Quantidade
+FROM Produtos
+WHERE Tamanho <> ''
+GROUP BY Tamanho 
+ORDER BY Quantidade
+▶ agrupando com group by
+
+SELECT * FROM Clientes
+SELECT * FROM Enderecos
+
+INSERT INTO Enderecos VALUES (4, 'Rua teste', 'Bairro teste', 'Cidade teste', 'SP')
+
+CREATE TABLE Enderecos (
+		Id int PRIMARY KEY IDENTITY (1, 1) NOT NULL,
+		IdCliente int,
+		Rua varchar (255),
+		Bairro varchar (255),
+		Cidade varchar (255),
+		Estado char(2)
+
+		CONSTRAINT FK_Enderecos_Clientes FOREIGN KEY (IdCliente)
+		REFERENCES Clientes(Id)
+)
+▶ referenciando com foreign key
+
+SELECT
+	*
+FROM
+	Clientes
+INNER JOIN Enderecos ON Clientes.Id - Enderecos.IdCliente
+WHERE Cliente.Id = 4
+▶ j8ntando com join
+
 *CTRL + K + C = comentário
